@@ -1,4 +1,45 @@
 package com.entrega1.entrega1.models;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.Set;
+
+@Entity()
+@Table(name="revengeplans")
+@Data//getters y setters
+@NoArgsConstructor// constructor vacio
+@AllArgsConstructor//constructor completo
 public class RevengePlan {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int id;
+
+    @Column(unique = true)
+    private String name;
+
+    private String description;
+
+    private Boolean  isExecuted ;
+
+    private LocalDate datePlanned;
+
+    @Enumerated(EnumType.STRING)
+    private SuccessLevel successLevel;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bully_id", nullable = false)
+    @JsonIgnore
+    private Bully bully;
+
+    @OneToMany(mappedBy ="revengePlan", cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnore
+    private Set<Media> media;
 }
