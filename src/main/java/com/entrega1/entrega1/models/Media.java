@@ -1,21 +1,22 @@
 package com.entrega1.entrega1.models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity()
-@Table(name="medias")
-@Data//getters y setters
-@NoArgsConstructor// constructor vacio
-@AllArgsConstructor//constructor completo
+@Entity
+@Table(name = "medias")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Media {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @Enumerated(EnumType.STRING)
@@ -25,4 +26,16 @@ public class Media {
     @JoinColumn(name = "revengePlan_id", nullable = false)
     @JsonIgnore
     private RevengePlan revengePlan;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Media)) return false;
+        return id != null && id.equals(((Media) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }
