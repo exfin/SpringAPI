@@ -1,12 +1,16 @@
 package com.entrega1.entrega1.dto;
 
 import com.entrega1.entrega1.models.HighSchoolRole;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record BullyDTO(
+        @Nullable
+        Integer id,
+
         @NotBlank(message = "El nombre no puede estar vacío")
         String name,
 
@@ -24,6 +28,6 @@ public record BullyDTO(
         @Max(value = 10, message = "Nivel máximo permitido: 10")
         Integer levelOfAnnoyance,
 
-        @NotNull(message = "Debe pertenecer a una clique")
+        @Nullable
         Integer cliqueId
 ) {}

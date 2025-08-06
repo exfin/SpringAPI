@@ -44,6 +44,12 @@ public class RevengePlan {
     @JsonIgnore
     private Set<Media> media = new HashSet<>();
 
+
+    public void addMedia(Media media) {
+        this.media.add(media);
+        media.setRevengePlan(this);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

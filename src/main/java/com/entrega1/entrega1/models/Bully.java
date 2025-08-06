@@ -46,6 +46,11 @@ public class Bully {
     @JsonIgnore
     private Set<RevengePlan> revengePlans = new HashSet<>();
 
+    public void addRevengePlan(RevengePlan revengePlan) {
+        this.revengePlans.add(revengePlan);
+        revengePlan.setBully(this);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

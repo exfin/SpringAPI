@@ -24,6 +24,7 @@ public class ServiceBully implements IServiceBully{
         return bullyDao.findAll().stream().map(
                 bully -> {
                     return new BullyDTO(
+                            bully.getId(),
                             bully.getName(),
                             bully.getNickname(),
                             bully.getHighSchoolRole(),
@@ -42,9 +43,10 @@ public class ServiceBully implements IServiceBully{
         bully.setNickname(bullyDto.nickname());
         bully.setHighSchoolRole(bullyDto.highSchoolRole());
         bully.setLevelOfAnnoyance(bullyDto.levelOfAnnoyance());
+        bully.setBulliyngReason(bullyDto.bulliyngReason());
 
         Clique clique = cliqueDao.findById(bullyDto.cliqueId())
-                .orElseThrow(() -> new RuntimeException("Clique not found"));
+                .orElseThrow(() -> new RuntimeException("No se encontró el clique"));
 
         clique.addBully(bully);
 
