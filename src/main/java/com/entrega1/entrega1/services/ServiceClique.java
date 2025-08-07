@@ -39,7 +39,8 @@ public class ServiceClique implements IServiceClique{
     }
 
     @Override
-    public void deleteClique(CliqueDTO clique) {
+    public void deleteClique(int id) {
+        cliqueDao.deleteById(id);
 
     }
 }

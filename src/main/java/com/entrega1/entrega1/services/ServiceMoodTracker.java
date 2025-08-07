@@ -38,7 +38,7 @@ public class ServiceMoodTracker implements IServiceMoodTracker {
     }
 
     @Override
-    public void deleteMood(MoodTrackerDTO mood) {
-
+    public void deleteMood(int id) {
+        moodTrackerDao.deleteById(id);
     }
 }

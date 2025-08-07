@@ -56,7 +56,9 @@ public class ServiceRevengePlan implements IServiceRevengePlan{
     }
 
     @Override
-    public void deleteRevengePlan(RevengePlan revengePlan) {
+    public void deleteRevengePlan(int id) {
+        revengePlanDao.deleteById(id);
+
 
     }
 
@@ -68,4 +70,24 @@ public class ServiceRevengePlan implements IServiceRevengePlan{
         revengePlan.setSuccessLevel(successLevel);
 
     }
+
+    @Override
+    public List<RevengePlanDTO> getRevengePlansByBullyId(int bullyId) {
+        Bully bully = bullyDao.findById(bullyId)
+                .orElseThrow(() -> new RuntimeException("No se encontró el bully con id " + bullyId));
+
+        return bully.getRevengePlans()
+                .stream()
+                .map(revengePlan -> new RevengePlanDTO(
+                        revengePlan.getId(),
+                        revengePlan.getName(),
+                        revengePlan.getDescription(),
+                        revengePlan.getIsExecuted(),
+                        revengePlan.getDatePlanned(),
+                        revengePlan.getSuccessLevel(),
+                        bully.getId()
+                ))
+                .toList();
+    }
+
 }

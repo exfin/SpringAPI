@@ -8,5 +8,6 @@ import java.util.List;
 public interface IServiceMedia {
    public List<MediaDTO> getMedia();
    public void addMedia(MediaDTO media);
-   public void deleteMedia(MediaDTO media);
+   public void deleteMedia(String id);
+   public List<MediaDTO> getMediaByRevengePlanId(int id);
 }

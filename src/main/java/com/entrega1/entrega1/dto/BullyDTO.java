@@ -28,6 +28,6 @@ public record BullyDTO(
         @Max(value = 10, message = "Nivel máximo permitido: 10")
         Integer levelOfAnnoyance,
 
-        @Nullable
+        @NotNull
         Integer cliqueId
 ) {}

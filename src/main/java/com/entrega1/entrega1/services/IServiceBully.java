@@ -9,5 +9,6 @@ public interface IServiceBully {
     public List<BullyDTO> getBullyList();
     public void addBully(BullyDTO bully);
     public Bully updateBully(BullyDTO bully);
-    public void deleteBully(BullyDTO bully);
+    public void deleteBully(int id);
+    public List<BullyDTO> getBullyListByCliqueId(int id);
 }

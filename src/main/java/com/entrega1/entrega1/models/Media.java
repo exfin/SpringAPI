@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Table(name = "medias")
@@ -26,6 +27,11 @@ public class Media {
     @JoinColumn(name = "revengePlan_id", nullable = false)
     @JsonIgnore
     private RevengePlan revengePlan;
+
+    @URL
+    private String url;
+
+    private String caption;
 
     @Override
     public boolean equals(Object o) {

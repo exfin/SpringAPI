@@ -9,5 +9,5 @@ import java.util.List;
 public interface IServiceClique {
     public List<CliqueDTO> getCliques();
     public void addClique(CliqueDTO clique);
-    public void deleteClique(CliqueDTO clique);
+    public void deleteClique(int id);
 }

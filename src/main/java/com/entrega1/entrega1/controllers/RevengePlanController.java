@@ -36,4 +36,17 @@ public class RevengePlanController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/bully/{id}")
+    public ResponseEntity<List<RevengePlanDTO>> getPlansByBully(@PathVariable int id) {
+        List<RevengePlanDTO> plans = revengeService.getRevengePlansByBullyId(id);
+        return ResponseEntity.ok(plans);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteRevengePlan(@PathVariable int id){
+        revengeService.deleteRevengePlan(id);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

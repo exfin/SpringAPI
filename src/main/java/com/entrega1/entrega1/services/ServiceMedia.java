@@ -23,8 +23,12 @@ public class ServiceMedia implements IServiceMedia{
         return mediaDao.findAll().stream().map(
                 media -> {
                     return new MediaDTO(
+                            media.getId(),
                             media.getMediaType(),
-                            media.getRevengePlan().getId()
+                            media.getRevengePlan().getId(),
+                            media.getUrl(),
+                            media.getCaption()
+
 
                     );
                 }
@@ -45,7 +49,25 @@ public class ServiceMedia implements IServiceMedia{
     }
 
     @Override
-    public void deleteMedia(MediaDTO media) {
+    public void deleteMedia(String id) {
+        mediaDao.deleteById(id);
+    }
 
+    @Override
+    public List<MediaDTO> getMediaByRevengePlanId(int id) {
+       RevengePlan revengePlan = revengePlanDao.findById(id)
+               .orElseThrow(() -> new RuntimeException("No se encontro el plan de venganza"));
+       return revengePlan.getMedia().stream().map(
+               media -> {
+                   return new MediaDTO(
+                           media.getId(),
+                           media.getMediaType(),
+                           revengePlan.getId(),
+                           media.getUrl(),
+                           media.getCaption()
+
+                   );
+               }
+       ).toList();
     }
 }

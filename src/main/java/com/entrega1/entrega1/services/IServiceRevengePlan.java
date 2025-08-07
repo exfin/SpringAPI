@@ -10,7 +10,9 @@ import java.util.List;
 public interface IServiceRevengePlan {
     public List<RevengePlanDTO> getRevengePlans();
     public void addRevengePlan(RevengePlanDTO revengePlan);
-    public void deleteRevengePlan(RevengePlan revengePlan);
+    public void deleteRevengePlan(int id);
     public void executeRevengePlan(int id, SuccessLevel successLevel);
+    public List<RevengePlanDTO> getRevengePlansByBullyId(int bullyId);
+
 
 }

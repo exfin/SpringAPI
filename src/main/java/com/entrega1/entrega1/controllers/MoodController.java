@@ -27,4 +27,9 @@ public class MoodController {
         moodService.addMood(moodTrackerDTO);
         return ResponseEntity.ok().build();
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteMood(@PathVariable int id){
+        moodService.deleteMood(id);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -29,4 +29,9 @@ public class CliqueController {
         return ResponseEntity.ok().build();
 
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBully(@PathVariable Integer id) {
+        cliqueService.deleteClique(id);
+        return ResponseEntity.ok().build();
+    }
 }

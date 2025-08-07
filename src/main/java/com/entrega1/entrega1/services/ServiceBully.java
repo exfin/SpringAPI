@@ -54,12 +54,52 @@ public class ServiceBully implements IServiceBully{
     }
 
     @Override
-    public Bully updateBully(BullyDTO bully) {
-        return null;
+    public Bully updateBully(BullyDTO bullyDTO) {
+        Bully bully = bullyDao.findById(bullyDTO.id())
+                .orElseThrow(() -> new RuntimeException("No se encontró el  Bully con id: " + bullyDTO.id()));
+
+        if (bullyDTO.name() != null) bully.setName(bullyDTO.name());
+        if (bullyDTO.nickname() != null) bully.setNickname(bullyDTO.nickname());
+        if (bullyDTO.highSchoolRole() != null) bully.setHighSchoolRole(bullyDTO.highSchoolRole());
+        if (bullyDTO.bulliyngReason() != null) bully.setBulliyngReason(bullyDTO.bulliyngReason());
+        if (bullyDTO.levelOfAnnoyance() != null) bully.setLevelOfAnnoyance(bullyDTO.levelOfAnnoyance());
+
+        if (bullyDTO.cliqueId() != null && bully.getClique().getId() != bullyDTO.cliqueId()) {
+            Clique newClique = cliqueDao.findById(bullyDTO.cliqueId())
+                    .orElseThrow(() -> new RuntimeException("No se encontró el clique con id: " + bullyDTO.cliqueId()));
+
+            newClique.addBully(bully);
+        }
+
+        // Save updated bully
+        bullyDao.save(bully);
+        return bully;
+    }
+
+
+
+    @Override
+    public void deleteBully(int id) {
+        bullyDao.deleteById(id);
+
     }
 
     @Override
-    public void deleteBully(BullyDTO bully) {
-
+    public List<BullyDTO> getBullyListByCliqueId(int id) {
+        Clique clique = cliqueDao.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontro el clique"));
+        return clique.getBullies().stream().map(
+                bully -> {
+                    return new BullyDTO(
+                            bully.getId(),
+                            bully.getName(),
+                            bully.getNickname(),
+                            bully.getHighSchoolRole(),
+                            bully.getBulliyngReason(),
+                            bully.getLevelOfAnnoyance(),
+                            clique.getId()
+                    );
+                }
+        ).toList();
     }
 }
